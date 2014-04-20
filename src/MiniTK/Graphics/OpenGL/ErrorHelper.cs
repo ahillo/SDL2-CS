@@ -59,7 +59,7 @@ namespace OpenTK.Graphics.OpenGL
 
         public ErrorHelper(IntPtr context)
         {
-            if (context == IntPtr.Zero)
+            if (context == IntPtr.Zero && !GL.DontRequireContext)
                 throw new GraphicsContextMissingException();
 
             Context = context;
@@ -93,7 +93,12 @@ namespace OpenTK.Graphics.OpenGL
         {
             if (GraphicsContext.ErrorChecking)
             {
-                List<ErrorCode> error_list = ContextErrors[Context];
+                List<ErrorCode> error_list;
+                if (GL.DontRequireContext)
+                    error_list = ContextErrors[Context];
+                else
+                    error_list = new List<ErrorCode>();
+
                 error_list.Clear();
                 ErrorCode error;
                 do

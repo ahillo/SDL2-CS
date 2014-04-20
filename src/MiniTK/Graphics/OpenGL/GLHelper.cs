@@ -54,6 +54,8 @@ namespace OpenTK.Graphics.OpenGL
     /// <see href="http://opengl.org/registry/"/>
     public sealed partial class GL : GraphicsBindingsBase
     {
+        public static bool DontRequireContext;
+
         #region --- Fields ---
 
         internal const string Library = "opengl32.dll";
